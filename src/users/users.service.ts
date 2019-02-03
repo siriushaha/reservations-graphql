@@ -7,7 +7,7 @@ export abstract class UserService {
 
   abstract find(): User[] | [];
 
-  abstract findMany(ids: number[]): User[];
+  abstract async findMany(ids: number[]);
 
   abstract findById(id: number): User | null;
 

@@ -7,13 +7,13 @@ export abstract class ReservationService {
 
   abstract find(): Reservation[] | [];
 
-  abstract findById(id: number): Reservation;
+  abstract findById(id: number): Reservation | null;
 
   abstract create(reservationInput: ReservationInput, userId: number): Reservation;
 
   abstract findByUserId(id: number): Reservation[] | null;
 
-  abstract findMany(ids: number[]): Reservation[];
+  abstract async findMany(ids: number[]);
 
   abstract update(id: number, reservationInput: ReservationInput): Reservation;
 }

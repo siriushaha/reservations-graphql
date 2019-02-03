@@ -10,6 +10,6 @@ export class UserLoader implements NestDataLoader {
 
   generateDataLoader(): DataLoader<any, any> {
     // it should instantiate a data laoder each time
-    return new DataLoader<number, User>(this.userService.findMany);
+    return new DataLoader<number, User[]>(this.userService.findMany);
   }
 }

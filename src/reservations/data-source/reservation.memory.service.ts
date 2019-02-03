@@ -58,7 +58,7 @@ export class ReservationMemoryService implements ReservationService {
     return this.reservations.filter(x => x.userId === id);
   }
 
-  public findMany(ids: number[]): Reservation[] {
+  public async findMany(ids: number[]) {
     return this.reservations.filter(x => ids.some(y => y === x.id));
   }
 

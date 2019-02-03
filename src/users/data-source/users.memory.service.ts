@@ -24,7 +24,7 @@ export class UserMemoryService implements UserService {
     return this.users;
   }
 
-  public findMany (ids: number[]): User[] | [] {
+  public findMany(ids: number[]): User[] {
     return this.users.filter(x => ids.some(y => x.id === y));
   }
 

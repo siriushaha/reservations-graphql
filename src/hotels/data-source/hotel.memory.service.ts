@@ -50,7 +50,7 @@ export class HotelMemoryService implements HotelService {
     return hotel;
   }
 
-  public findMany(ids: number[]): Hotel[] {
+  public async findMany(ids: number[]) {
     return this.hotels.filter(x => ids.some(y => y === x.id));
   }
 

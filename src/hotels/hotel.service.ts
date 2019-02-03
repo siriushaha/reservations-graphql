@@ -11,7 +11,7 @@ export abstract class HotelService {
 
   abstract create(hotelInput: HotelInput): Hotel;
 
-  abstract findMany(ids: number[]): Hotel[];
+  abstract async findMany(ids: number[]);
 
   abstract update(id: number, hotelInput: HotelInput): Hotel;
 }
