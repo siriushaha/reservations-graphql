@@ -1,10 +1,10 @@
-import { ObjectType, Field } from 'nest-type-graphql';
+import { ObjectType, Field, ID } from 'nest-type-graphql';
 import { Reservation } from 'src/reservations/model/reservation';
 import { MetaData } from 'src/common/MetaData';
 
 @ObjectType({ implements: MetaData })
 export class User implements MetaData {
-  @Field()
+  @Field(type => ID)
   id: number;
 
   @Field()

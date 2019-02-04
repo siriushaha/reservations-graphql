@@ -3,12 +3,12 @@ import {
   Query,
   Arg,
   Mutation,
-  Context,
+  ID,
 } from 'nest-type-graphql';
 import { Hotel } from './model/hotel';
 import { HotelService } from './hotel.service';
 import { HotelInput } from './dto/hotelInput';
-import { User } from 'src/users/model/user';
+// import { User } from 'src/users/model/user';
 import {
   UseGuards,
   NotFoundException,
@@ -21,7 +21,7 @@ export class HotelResolver {
     private readonly hotelService: HotelService,
   ) {}
 
-  @Query(returns => [Hotel], { name: 'hotels' })
+  @Query(returns => [Hotel], { name: 'hotels', nullable: true })
   hotels(): Hotel[] {
     return this.hotelService.find();
   }
@@ -45,9 +45,8 @@ export class HotelResolver {
   @UseGuards(AuthGuard)
   @Mutation(returns => Hotel)
   updateHotel(
-    @Arg('id') id: number,
+    @Arg('id', type => ID) id: number,
     @Arg('data') hotelInput: HotelInput,
-    @Context('user') user: User,
   ): Hotel {
     const hotel = this.hotelService.findById(id);
     if (!hotel) {

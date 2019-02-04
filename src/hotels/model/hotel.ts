@@ -1,11 +1,11 @@
 import { Field } from 'nest-type-graphql';
-import { ObjectType } from 'type-graphql';
+import { ObjectType, ID } from 'type-graphql';
 
 import { MetaData } from 'src/common/MetaData';
 
 @ObjectType({ implements: MetaData })
 export class Hotel implements MetaData {
-  @Field()
+  @Field(type => ID)
   public id: number;
 
   @Field()

@@ -6,6 +6,7 @@ import {
   Context,
   Parent,
   FieldResolver,
+  ID,
 } from 'nest-type-graphql';
 import Dataloader from 'dataloader';
 import {
@@ -22,8 +23,8 @@ import { User } from 'src/users/model/user';
 import { Hotel } from 'src/hotels/model/hotel';
 
 import { AuthGuard } from 'src/common/AuthGuard';
-import { AuthenticationError, ForbiddenError, gql } from 'apollo-server-core';
-import { Loader } from 'src/common/loader.decorator';
+// import { AuthenticationError, ForbiddenError, gql } from 'apollo-server-core';
+// import { Loader } from 'src/common/loader.decorator';
 import { UserLoader } from 'src/users/user.dataloader';
 
 @Resolver(type => Reservation)
@@ -33,13 +34,13 @@ export class ReservationResolver {
     private readonly hotelService: HotelService,
   ) {}
 
-  @Query(returns => [Reservation], { name: 'reservations' })
+  @Query(returns => [Reservation], { name: 'reservations' , nullable: true})
   reservations(): Reservation[] {
     return this.reservationService.find();
   }
 
-  @Query(returns => Reservation)
-  reservationById(@Arg('id') id: number): Reservation {
+  @Query(returns => Reservation, { nullable: true })
+  reservationById(@Arg('id', type => ID) id: number): Reservation {
     const reservation = this.reservationService.findById(id);
     if (reservation) {
       return reservation;
@@ -60,7 +61,7 @@ export class ReservationResolver {
   @UseGuards(AuthGuard)
   @Mutation(returns => Reservation)
   updateReservation(
-    @Arg('id') id: number,
+    @Arg('id', type => ID) id: number,
     @Arg('data') reservationInput: ReservationInput,
     @Context('user') user: User,
   ): Reservation {
@@ -74,7 +75,6 @@ export class ReservationResolver {
     return this.reservationService.update(id, reservationInput);
   }
 
-  @Loader(UserLoader)
   @FieldResolver(returns => User)
   user(
     @Parent() reservation: Reservation,

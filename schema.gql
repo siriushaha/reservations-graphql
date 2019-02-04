@@ -16,7 +16,7 @@ scalar DateTime
 type Hotel implements MetaData {
   createdAt: DateTime!
   updatedAt: DateTime!
-  id: Float!
+  id: ID!
   name: String!
   address: String!
   phone: String!
@@ -44,23 +44,23 @@ type Mutation {
   register(data: CreateUserInput!): User!
   login(data: LoginInput!): Token!
   createReservation(data: ReservationInput!): Reservation!
-  updateReservation(data: ReservationInput!, id: Float!): Reservation!
+  updateReservation(data: ReservationInput!, id: ID!): Reservation!
   createHotel(data: HotelInput!): Hotel!
-  updateHotel(data: HotelInput!, id: Float!): Hotel!
+  updateHotel(data: HotelInput!, id: ID!): Hotel!
 }
 
 type Query {
   users: [User!]!
-  reservations: [Reservation!]!
-  reservationById(id: Float!): Reservation!
-  hotels: [Hotel!]!
-  hotelById(id: Float!): Hotel!
+  reservations: [Reservation!]
+  reservationById(id: ID!): Reservation
+  hotels: [Hotel!]
+  hotelById(id: ID!): Hotel
 }
 
 type Reservation implements MetaData {
   createdAt: DateTime!
   updatedAt: DateTime!
-  id: Float!
+  id: ID!
   name: String!
   hotelName: String!
   arrivalDate: DateTime!
@@ -80,7 +80,7 @@ input ReservationInput {
 type Token implements MetaData {
   createdAt: DateTime!
   updatedAt: DateTime!
-  id: Float!
+  id: ID!
   firstName: String!
   lastName: String!
   username: String!
@@ -91,7 +91,7 @@ type Token implements MetaData {
 type User implements MetaData {
   createdAt: DateTime!
   updatedAt: DateTime!
-  id: Float!
+  id: ID!
   firstName: String!
   lastName: String!
   username: String!

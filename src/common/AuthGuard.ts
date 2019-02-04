@@ -17,7 +17,9 @@ export class AuthGuard implements CanActivate {
       .req.header('authorization');
     const user = this.tokenService.get(authToken);
     if (user) {
-      graphqlExecutionContext.getContext<GqlContext>().user = user;
+      graphqlExecutionContext
+        .getContext<GqlContext>()
+        .user = user;
       return true;
     } else {
       return false;
